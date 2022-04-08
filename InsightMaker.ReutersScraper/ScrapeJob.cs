@@ -19,15 +19,13 @@ namespace InsightMaker.ReutersScraper
     {
         private static readonly HttpClient client = new HttpClient();
         private static List<string> guid_cache = new List<string>();
-        private static string cache_file = @"guidcache.json";
-
-        //async Task IJob.Execute(IJobExecutionContext context)
+        private static string cache_file = @"guidcache.json";   // default.
         public async void RunScraper(string channel, string outputpath)
         {
-
             var conf = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             var user = conf.GetSection("Reuters")["user"];
             var password = conf.GetSection("Reuters")["password"];
+            cache_file = conf.GetSection("Reuters")["cachefile"];
 
             string[] cacheFile = null;
             // read cache file into list.
@@ -94,6 +92,7 @@ namespace InsightMaker.ReutersScraper
                     var art = "\u0022" + articleText.Replace(",", "|").Replace("[", "").Replace("]", "").Replace("\n", " ").Replace("\r", "").Replace("</p>", " ").Replace("<p>", " ").Replace("\"", "").Replace("|", "") + "\u0022";
 
                     art = Regex.Replace(art, @"\s+", " ");
+                    art = Regex.Replace(art, @"\w+", " ");
 
                     var outstring = $@"{itm.channel},{itm.dateCreated.ToString("yyyy-MM-ddThh:mm:ss.SSSZ")},{geography},{guid},{headline},{id},{itm.language},{itm.mediaType},{itm.priority},{slug},{source},{itm.version},{art}";
                     await WriteToConsole(headline);
