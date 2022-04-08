@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Xml;
-using System.Xml.Serialization;
 using Microsoft.Extensions.Configuration;
 using System.Text.RegularExpressions;
 
 namespace InsightMaker.ReutersScraper
 {
-
     public class ScrapeJob
     {
         private static readonly HttpClient client = new HttpClient();
