@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "InsightMaker.ReutersScraper": {
+      "commandName": "Project",
+      "commandLineArgs": "STK567 C:\\Users\\dsmith\\Documents\\ExtractedReuters"
+    }
+  }
+}
